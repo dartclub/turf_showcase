@@ -1,0 +1,29 @@
+name: turf_showcase
+description: "Showcase app demonstrating the turf_dart package"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  turf:
+    path: ../turf_dart
+
+  geotypes: ^0.0.2
+
+dependency_overrides: 
+  turf:
+    path: ../turf_dart
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

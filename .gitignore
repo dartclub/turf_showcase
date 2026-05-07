@@ -1,0 +1,12 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
