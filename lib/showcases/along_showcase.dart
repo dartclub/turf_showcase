@@ -207,29 +207,11 @@ class _AlongShowcaseState extends State<AlongShowcase>
           ),
           const SizedBox(width: 8),
           const Text(
-            'Interactive Showcase',
+            'Example interactive map',
             style: TextStyle(
               color: _textPrimary,
               fontSize: 14,
               fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
-              color: _green.withOpacity(0.12),
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: _green.withOpacity(0.3)),
-            ),
-            child: const Text(
-              'LIVE',
-              style: TextStyle(
-                color: _green,
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.0,
-              ),
             ),
           ),
           const Spacer(),
