@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../data/api_data.dart';
+import '../showcases/along_showcase.dart';
 
 class ApiPage extends StatefulWidget {
   const ApiPage({super.key});
@@ -381,6 +382,8 @@ class _ApiPageState extends State<ApiPage> {
           const SizedBox(height: 12),
           _buildCodeBlock(fn.example),
 
+          ..._buildShowcaseSection(fn),
+
           const SizedBox(height: 60),
           // Navigation
           _buildNavigation(fn, category),
@@ -637,6 +640,20 @@ class _ApiPageState extends State<ApiPage> {
     }
 
     return RichText(text: TextSpan(children: spans));
+  }
+
+  List<Widget> _buildShowcaseSection(TurfFunction fn) {
+    Widget? showcase;
+    if (fn.name == 'along') {
+      showcase = const AlongShowcase();
+    }
+    if (showcase == null) return const [];
+    return [
+      const SizedBox(height: 40),
+      _sectionHeader('Try it'),
+      const SizedBox(height: 12),
+      showcase,
+    ];
   }
 
   Widget _buildNavigation(TurfFunction fn, TurfCategory category) {
