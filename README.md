@@ -1,10 +1,10 @@
 # API documentation for turf-dart and geotypes written in flutter
 
 # Installation (For development)
-## requirements
+## Requirements
 - Chrome
 - Flutter cli
-- 
+
 If you are using bash you can run our script
 `./scripts/develop_chrome.sh`
 
