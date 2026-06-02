@@ -5,12 +5,10 @@ class InstallationSection extends StatefulWidget {
   const InstallationSection({
     super.key,
     required this.functionName,
-    required this.importPath,
     required this.usageExample,
   });
 
   final String functionName;
-  final String importPath;
   final String usageExample;
 
   @override
