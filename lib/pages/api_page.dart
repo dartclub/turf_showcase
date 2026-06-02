@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../data/api_data.dart';
 import '../showcases/along_showcase.dart';
+import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
   const ApiPage({super.key});
@@ -644,8 +645,15 @@ class _ApiPageState extends State<ApiPage> {
 
   List<Widget> _buildShowcaseSection(TurfFunction fn) {
     Widget? showcase;
+    Widget? installation;
     if (fn.name == 'along') {
       showcase = const AlongShowcase();
+      installation = const InstallationSection(
+        functionName: 'along',
+        importPath: 'package:turf/along.dart',
+        usageExample:
+            "import 'package:turf/along.dart';\nimport 'package:turf/helpers.dart';\n\nfinal line = Feature<LineString>(\n  geometry: LineString(coordinates: [\n    Position(-74.0060, 40.7128),\n    Position(-73.9580, 40.8005),\n  ]),\n);\n\nfinal point = along(line, 5.0, Unit.kilometers);",
+      );
     }
     if (showcase == null) return const [];
     return [
@@ -653,6 +661,12 @@ class _ApiPageState extends State<ApiPage> {
       _sectionHeader('Try it'),
       const SizedBox(height: 12),
       showcase,
+      if (installation != null) ...[
+        const SizedBox(height: 40),
+        _sectionHeader('Installation'),
+        const SizedBox(height: 12),
+        installation,
+      ],
     ];
   }
 
