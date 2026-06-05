@@ -154,6 +154,25 @@ final c = center(fc);''',
 final c = centroid(polygon);''',
       ),
       TurfFunction(
+        name: 'centerOfMass',
+        description:
+            'Takes a Feature or FeatureCollection and returns the center of mass as a Point, using the weighted centroid of all vertices.',
+        params: [
+          TurfParam(name: 'geojson', type: 'GeoJSONObject', description: 'GeoJSON to measure'),
+          TurfParam(name: 'properties', type: 'Map?', description: 'Properties to attach to the result', optional: true),
+        ],
+        returns: 'Feature<Point>',
+        example: '''final polygon = Feature<Polygon>(
+  geometry: Polygon(coordinates: [[
+    Position(0, 0), Position(10, 0),
+    Position(10, 10), Position(0, 10),
+    Position(0, 0),
+  ]]),
+);
+final com = centerOfMass(polygon);
+// roughly Position(5.0, 5.0)''',
+      ),
+      TurfFunction(
         name: 'destination',
         description:
             'Calculates the destination point given a distance and bearing from an origin point.',

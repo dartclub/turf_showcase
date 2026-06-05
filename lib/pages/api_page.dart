@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../data/api_data.dart';
 import '../showcases/along_showcase.dart';
 import '../showcases/flip_showcase.dart'; 
+import '../showcases/center_of_mass_showcase.dart';
 import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
@@ -624,6 +625,8 @@ class _ApiPageState extends State<ApiPage> {
       showcase = const AlongShowcase();
     } else if (fn.name == 'flip') {
       showcase = const FlipShowcase(); 
+    } else if (fn.name == 'centerOfMass') {
+      showcase = const CenterOfMassShowcase();
     }
 
     final installation = InstallationSection(
