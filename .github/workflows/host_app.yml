@@ -1,7 +1,7 @@
 name: hostApp
 
 on:
-  workflow-dispatch:
+  workflow_dispatch:
 
 permissions:
   contents: read
