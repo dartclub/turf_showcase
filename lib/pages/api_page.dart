@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../data/api_data.dart';
 import '../showcases/along_showcase.dart';
+import '../showcases/flip_showcase.dart'; 
+import '../showcases/center_of_mass_showcase.dart';
+import '../showcases/geo_to_mercator_showcase.dart';
+import '../showcases/geo_to_wgs84_showcase.dart';
+import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
   const ApiPage({super.key});
@@ -79,7 +84,6 @@ class _ApiPageState extends State<ApiPage> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
-          // Logo
           Row(
             children: [
               Container(
@@ -119,7 +123,6 @@ class _ApiPageState extends State<ApiPage> {
             ],
           ),
           const Spacer(),
-          // Nav links
           _topNavLink('API', active: true),
           const SizedBox(width: 24)
         ],
@@ -148,7 +151,6 @@ class _ApiPageState extends State<ApiPage> {
       ),
       child: Column(
         children: [
-          // Search
           Padding(
             padding: const EdgeInsets.all(16),
             child: Container(
@@ -180,7 +182,6 @@ class _ApiPageState extends State<ApiPage> {
               ),
             ),
           ),
-          // Categories
           Expanded(
             child: ListView(
               padding: const EdgeInsets.only(bottom: 24),
@@ -197,7 +198,6 @@ class _ApiPageState extends State<ApiPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Category header
         InkWell(
           onTap: () => setState(() {
             _expandedCategory = isExpanded && _searchQuery.isEmpty ? null : cat.name;
@@ -227,7 +227,6 @@ class _ApiPageState extends State<ApiPage> {
             ),
           ),
         ),
-        // Function list
         if (isExpanded)
           ...cat.functions.map((fn) => _buildSidebarItem(fn)),
       ],
@@ -297,7 +296,6 @@ class _ApiPageState extends State<ApiPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Breadcrumb
           Row(
             children: [
               Text(category.icon, style: const TextStyle(fontSize: 14)),
@@ -318,8 +316,6 @@ class _ApiPageState extends State<ApiPage> {
             ],
           ),
           const SizedBox(height: 28),
-
-          // Function name
           Text(
             fn.name,
             style: const TextStyle(
@@ -330,8 +326,6 @@ class _ApiPageState extends State<ApiPage> {
             ),
           ),
           const SizedBox(height: 16),
-
-          // Description
           Text(
             fn.description,
             style: const TextStyle(
@@ -341,14 +335,10 @@ class _ApiPageState extends State<ApiPage> {
             ),
           ),
           const SizedBox(height: 40),
-
-          // Parameters
           _sectionHeader('Parameters'),
           const SizedBox(height: 12),
           _buildParamsTable(fn),
           const SizedBox(height: 40),
-
-          // Returns
           _sectionHeader('Returns'),
           const SizedBox(height: 12),
           Container(
@@ -376,16 +366,11 @@ class _ApiPageState extends State<ApiPage> {
             ),
           ),
           const SizedBox(height: 40),
-
-          // Example
           _sectionHeader('Example'),
           const SizedBox(height: 12),
           _buildCodeBlock(fn.example),
-
           ..._buildShowcaseSection(fn),
-
           const SizedBox(height: 60),
-          // Navigation
           _buildNavigation(fn, category),
         ],
       ),
@@ -428,7 +413,6 @@ class _ApiPageState extends State<ApiPage> {
       ),
       child: Column(
         children: [
-          // Header
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: const BoxDecoration(
@@ -451,7 +435,6 @@ class _ApiPageState extends State<ApiPage> {
               ],
             ),
           ),
-          // Rows
           ...fn.params.asMap().entries.map((entry) {
             final i = entry.key;
             final p = entry.value;
@@ -534,7 +517,6 @@ class _ApiPageState extends State<ApiPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Code header bar
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: const BoxDecoration(
@@ -575,7 +557,6 @@ class _ApiPageState extends State<ApiPage> {
               ],
             ),
           ),
-          // Code
           Padding(
             padding: const EdgeInsets.all(20),
             child: _buildHighlightedCode(code),
@@ -600,7 +581,6 @@ class _ApiPageState extends State<ApiPage> {
   }
 
   Widget _highlightLine(String line) {
-    // Simple syntax highlighting
     const keywords = ['final', 'var', 'const', 'void', 'return', 'true', 'false', 'null'];
     const types = ['Feature', 'Point', 'LineString', 'Polygon', 'MultiPoint',
         'MultiLineString', 'MultiPolygon', 'FeatureCollection', 'Position',
@@ -613,7 +593,6 @@ class _ApiPageState extends State<ApiPage> {
       );
     }
 
-    // Build spans
     final spans = <TextSpan>[];
     final words = line.split(RegExp(r'(?<=\s)|(?=\s)|(?=\()|(?<=\()|(?=\))|(?<=\))|(?=,)|(?<=,)|(?=;)|(?<=;)|(?=<)|(?=\[)|(?=\])|(?={)|(?=})'));
 
@@ -646,18 +625,36 @@ class _ApiPageState extends State<ApiPage> {
     Widget? showcase;
     if (fn.name == 'along') {
       showcase = const AlongShowcase();
+    } else if (fn.name == 'flip') {
+      showcase = const FlipShowcase(); 
+    } else if (fn.name == 'centerOfMass') {
+      showcase = const CenterOfMassShowcase();
+    } else if (fn.name == 'geoToMercator') {
+      showcase = const GeoToMercatorShowcase();
+    } else if (fn.name == 'geoToWgs84') {
+      showcase = const GeoToWgs84Showcase();
     }
-    if (showcase == null) return const [];
+
+    final installation = InstallationSection(
+      functionName: fn.name,
+      usageExample: "import 'package:turf/turf.dart';\n\n${fn.example}",
+    );
+
     return [
+      if (showcase != null) ...[
+        const SizedBox(height: 40),
+        _sectionHeader('Try it'),
+        const SizedBox(height: 12),
+        showcase,
+      ],
       const SizedBox(height: 40),
-      _sectionHeader('Try it'),
+      _sectionHeader('Installation'),
       const SizedBox(height: 12),
-      showcase,
+      installation,
     ];
   }
 
   Widget _buildNavigation(TurfFunction fn, TurfCategory category) {
-    // Find prev/next across all categories
     final allFunctions = apiCategories.expand((c) => c.functions).toList();
     final idx = allFunctions.indexWhere((f) => f.name == fn.name);
     final prev = idx > 0 ? allFunctions[idx - 1] : null;
