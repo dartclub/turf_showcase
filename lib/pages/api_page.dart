@@ -4,6 +4,8 @@ import '../data/api_data.dart';
 import '../showcases/along_showcase.dart';
 import '../showcases/flip_showcase.dart'; 
 import '../showcases/center_of_mass_showcase.dart';
+import '../showcases/geo_to_mercator_showcase.dart';
+import '../showcases/geo_to_wgs84_showcase.dart';
 import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
@@ -627,6 +629,10 @@ class _ApiPageState extends State<ApiPage> {
       showcase = const FlipShowcase(); 
     } else if (fn.name == 'centerOfMass') {
       showcase = const CenterOfMassShowcase();
+    } else if (fn.name == 'geoToMercator') {
+      showcase = const GeoToMercatorShowcase();
+    } else if (fn.name == 'geoToWgs84') {
+      showcase = const GeoToWgs84Showcase();
     }
 
     final installation = InstallationSection(
