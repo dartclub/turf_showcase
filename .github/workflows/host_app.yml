@@ -32,6 +32,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
+        working-directory: ./build/web
         id: deployment
         uses: actions/deploy-pages@v5
-        working-directory: build/web
