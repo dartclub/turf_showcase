@@ -6,6 +6,7 @@ on:
 permissions:
   contents: read
   pages: write
+  id-token: write
 
 jobs:
   build:
@@ -27,11 +28,17 @@ jobs:
         run: flutter build web
 
   deploy:
-    name: github-pages
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+        with:
+          path: ./build/web
+
       - name: Deploy to GitHub Pages
-        working-directory: ./build/web
         id: deployment
         uses: actions/deploy-pages@v5
