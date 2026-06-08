@@ -2,7 +2,8 @@ name: hostApp
 
 on:
   push:
-  workflow_dispatch:
+    branches: # Rebuilds the site when a PR is merged into main
+      - main
 
 permissions:
   contents: read
