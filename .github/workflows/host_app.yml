@@ -16,9 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-#      - name: Setup Dart
-#        uses: dart-lang/setup-dart@v1
-
       - name: Setup Flutter SDK
         uses: flutter-actions/setup-flutter@v4
         with:
@@ -29,7 +26,7 @@ jobs:
         run: flutter pub get
 
       - name: Build webapp
-        run: flutter build web --base-href /build/web/
+        run: flutter build web
 
       - name: upload web artefacts
         uses: actions/upload-pages-artifact@v5
@@ -43,10 +40,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6 # probably not required
-        with:
-          path: ./build/web
- 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
