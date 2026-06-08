@@ -263,6 +263,24 @@ final pt = Feature(geometry: Point(coordinates: Position(-77.037076, 38.884017))
 final snapped = nearestPointOnLine(line, pt);''',
       ),
       TurfFunction(
+        name: 'pointOnFeature',
+        description:
+            'Takes a Feature or FeatureCollection and returns a Point guaranteed to be on the surface of the feature — unlike center or centroid, which can fall outside concave shapes.',
+        params: [
+          TurfParam(name: 'geojson', type: 'GeoJSONObject', description: 'Any GeoJSON feature'),
+        ],
+        returns: 'Feature<Point>',
+        example: '''final polygon = Feature<Polygon>(
+        geometry: Polygon(coordinates: [[
+          Position(0, 0), Position(10, 0),
+          Position(10, 10), Position(0, 10),
+          Position(0, 0),
+        ]]),
+      );
+      final pt = pointOnFeature(polygon);
+      // guaranteed to lie on the polygon surface''',
+      ),
+      TurfFunction(
         name: 'pointToLineDistance',
         description: 'Returns the minimum distance between a Point and a LineString.',
         params: [
