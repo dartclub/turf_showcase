@@ -11,5 +11,5 @@ fi
 flutter doctor -v
 # pub get
 flutter pub get
-# build
-flutter build web
+# run dev image in chrome
+flutter run -d chrome
