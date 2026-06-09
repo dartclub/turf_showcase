@@ -2,11 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../data/api_data.dart';
 import '../showcases/along_showcase.dart';
-import '../showcases/flip_showcase.dart'; 
+import '../showcases/area_showcase.dart';
+import '../showcases/bbox_showcase.dart';
+import '../showcases/bbox_polygon_showcase.dart';
+import '../showcases/bearing_showcase.dart';
+import '../showcases/boolean_clockwise_showcase.dart';
+import '../showcases/boolean_concave_showcase.dart';
+import '../showcases/boolean_contains_showcase.dart';
+import '../showcases/boolean_crosses_showcase.dart';
+import '../showcases/boolean_disjoint_showcase.dart';
+import '../showcases/boolean_equal_showcase.dart';
+import '../showcases/boolean_overlap_showcase.dart';
+import '../showcases/boolean_parallel_showcase.dart';
+import '../showcases/boolean_point_in_polygon_showcase.dart';
+import '../showcases/boolean_point_on_line_showcase.dart';
+import '../showcases/boolean_within_showcase.dart';
 import '../showcases/center_of_mass_showcase.dart';
+import '../showcases/center_showcase.dart';
+import '../showcases/centroid_showcase.dart';
+import '../showcases/destination_showcase.dart';
+import '../showcases/distance_showcase.dart';
+import '../showcases/explode_showcase.dart';
+import '../showcases/flip_showcase.dart';
 import '../showcases/geo_to_mercator_showcase.dart';
 import '../showcases/geo_to_wgs84_showcase.dart';
+import '../showcases/length_showcase.dart';
+import '../showcases/line_intersect_showcase.dart';
+import '../showcases/line_overlap_showcase.dart';
+import '../showcases/line_segment_showcase.dart';
+import '../showcases/line_slice_along_showcase.dart';
+import '../showcases/line_slice_showcase.dart';
+import '../showcases/line_to_polygon_showcase.dart';
+import '../showcases/midpoint_showcase.dart';
+import '../showcases/nearest_point_on_line_showcase.dart';
+import '../showcases/nearest_point_showcase.dart';
 import '../showcases/point_on_feature_showcase.dart';
+import '../showcases/point_to_line_distance_showcase.dart';
+import '../showcases/polygon_smooth_showcase.dart';
+import '../showcases/polygon_to_line_showcase.dart';
+import '../showcases/rhumb_bearing_showcase.dart';
+import '../showcases/rhumb_destination_showcase.dart';
+import '../showcases/rhumb_distance_showcase.dart';
+import '../showcases/square_showcase.dart';
+import '../showcases/transform_rotate_showcase.dart';
 import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
@@ -623,20 +661,7 @@ class _ApiPageState extends State<ApiPage> {
   }
 
   List<Widget> _buildShowcaseSection(TurfFunction fn) {
-    Widget? showcase;
-    if (fn.name == 'along') {
-      showcase = const AlongShowcase();
-    } else if (fn.name == 'flip') {
-      showcase = const FlipShowcase(); 
-    } else if (fn.name == 'centerOfMass') {
-      showcase = const CenterOfMassShowcase();
-    } else if (fn.name == 'geoToMercator') {
-      showcase = const GeoToMercatorShowcase();
-    } else if (fn.name == 'geoToWgs84') {
-      showcase = const GeoToWgs84Showcase();
-    } else if (fn.name == 'pointOnFeature') {
-      showcase = const PointOnFeatureShowcase();
-    }
+    final showcase = _showcaseFor(fn.name);
 
     final installation = InstallationSection(
       functionName: fn.name,
@@ -655,6 +680,100 @@ class _ApiPageState extends State<ApiPage> {
       const SizedBox(height: 12),
       installation,
     ];
+  }
+
+  Widget? _showcaseFor(String name) {
+    switch (name) {
+      case 'along':
+        return const AlongShowcase();
+      case 'area':
+        return const AreaShowcase();
+      case 'bbox':
+        return const BboxShowcase();
+      case 'bboxPolygon':
+        return const BboxPolygonShowcase();
+      case 'bearing':
+        return const BearingShowcase();
+      case 'center':
+        return const CenterShowcase();
+      case 'centroid':
+        return const CentroidShowcase();
+      case 'centerOfMass':
+        return const CenterOfMassShowcase();
+      case 'destination':
+        return const DestinationShowcase();
+      case 'distance':
+        return const DistanceShowcase();
+      case 'length':
+        return const LengthShowcase();
+      case 'midpoint':
+        return const MidpointShowcase();
+      case 'nearestPoint':
+        return const NearestPointShowcase();
+      case 'nearestPointOnLine':
+        return const NearestPointOnLineShowcase();
+      case 'pointOnFeature':
+        return const PointOnFeatureShowcase();
+      case 'pointToLineDistance':
+        return const PointToLineDistanceShowcase();
+      case 'rhumbBearing':
+        return const RhumbBearingShowcase();
+      case 'rhumbDestination':
+        return const RhumbDestinationShowcase();
+      case 'rhumbDistance':
+        return const RhumbDistanceShowcase();
+      case 'square':
+        return const SquareShowcase();
+      case 'flip':
+        return const FlipShowcase();
+      case 'geoToMercator':
+        return const GeoToMercatorShowcase();
+      case 'geoToWgs84':
+        return const GeoToWgs84Showcase();
+      case 'polygonSmooth':
+        return const PolygonSmoothShowcase();
+      case 'transformRotate':
+        return const TransformRotateShowcase();
+      case 'lineToPolygon':
+        return const LineToPolygonShowcase();
+      case 'polygonToLine':
+        return const PolygonToLineShowcase();
+      case 'explode':
+        return const ExplodeShowcase();
+      case 'lineIntersect':
+        return const LineIntersectShowcase();
+      case 'lineOverlap':
+        return const LineOverlapShowcase();
+      case 'lineSlice':
+        return const LineSliceShowcase();
+      case 'lineSliceAlong':
+        return const LineSliceAlongShowcase();
+      case 'lineSegment':
+        return const LineSegmentShowcase();
+      case 'booleanClockwise':
+        return const BooleanClockwiseShowcase();
+      case 'booleanConcave':
+        return const BooleanConcaveShowcase();
+      case 'booleanContains':
+        return const BooleanContainsShowcase();
+      case 'booleanCrosses':
+        return const BooleanCrossesShowcase();
+      case 'booleanDisjoint':
+        return const BooleanDisjointShowcase();
+      case 'booleanEqual':
+        return const BooleanEqualShowcase();
+      case 'booleanOverlap':
+        return const BooleanOverlapShowcase();
+      case 'booleanParallel':
+        return const BooleanParallelShowcase();
+      case 'booleanPointInPolygon':
+        return const BooleanPointInPolygonShowcase();
+      case 'booleanPointOnLine':
+        return const BooleanPointOnLineShowcase();
+      case 'booleanWithin':
+        return const BooleanWithinShowcase();
+    }
+    return null;
   }
 
   Widget _buildNavigation(TurfFunction fn, TurfCategory category) {
