@@ -7,6 +7,8 @@ import '../showcases/center_of_mass_showcase.dart';
 import '../showcases/geo_to_mercator_showcase.dart';
 import '../showcases/geo_to_wgs84_showcase.dart';
 import '../showcases/point_on_feature_showcase.dart';
+import '../showcases/envelope_showcase.dart';
+import '../showcases/random_linestring_showcase.dart';
 import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
@@ -636,6 +638,10 @@ class _ApiPageState extends State<ApiPage> {
       showcase = const GeoToWgs84Showcase();
     } else if (fn.name == 'pointOnFeature') {
       showcase = const PointOnFeatureShowcase();
+    } else if (fn.name == 'envelope') {
+      showcase = const EnvelopeShowcase();
+    } else if (fn.name == 'randomLineString') {
+      showcase = const RandomLinestringShowcase();
     }
 
     final installation = InstallationSection(
