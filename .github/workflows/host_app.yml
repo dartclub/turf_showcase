@@ -1,0 +1,46 @@
+name: hostApp
+
+on:
+  push:
+    branches: # Rebuilds the site when a PR is merged into main
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v4
+        with:
+          channel: stable
+          version: 3.44.1
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build webapp
+        run: flutter build web
+
+      - name: upload web artefacts
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./build/web
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
