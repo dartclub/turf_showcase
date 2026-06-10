@@ -9,6 +9,8 @@ import '../showcases/geo_to_wgs84_showcase.dart';
 import '../showcases/point_on_feature_showcase.dart';
 import '../showcases/envelope_showcase.dart';
 import '../showcases/random_linestring_showcase.dart';
+import '../showcases/flatten_showcase.dart';
+import '../showcases/bearing_showcase.dart';
 import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
@@ -642,6 +644,10 @@ class _ApiPageState extends State<ApiPage> {
       showcase = const EnvelopeShowcase();
     } else if (fn.name == 'randomLineString') {
       showcase = const RandomLinestringShowcase();
+    } else if (fn.name == 'flatten') {
+      showcase = const FlattenShowcase();
+    } else if (fn.name == 'bearing') {
+      showcase = const BearingShowcase();
     }
 
     final installation = InstallationSection(

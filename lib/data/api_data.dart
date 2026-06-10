@@ -220,6 +220,20 @@ final d = distance(from, to, Unit.miles);
       // returns a rectangle that fits all three points''',
       ),
       TurfFunction(
+        name: 'flatten',
+        description:
+            'Takes any GeoJSON object and returns a FeatureCollection of simple single-geometry features. Multi geometries like MultiPolygon or MultiLineString are split into their individual parts.',
+        params: [
+          TurfParam(name: 'geojson', type: 'GeoJSONObject', description: 'Any GeoJSON object including Multi geometries'),
+        ],
+        returns: 'FeatureCollection<GeometryObject>',
+        example: '''final multiPolygon = Feature<MultiPolygon>(
+        geometry: MultiPolygon(coordinates: [...]),
+      );
+      final result = flatten(multiPolygon);
+      // returns FeatureCollection with 3 individual Polygon features''',
+      ),
+      TurfFunction(
         name: 'length',
         description: 'Takes a GeoJSON LineString and measures its total length.',
         params: [
