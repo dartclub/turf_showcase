@@ -202,6 +202,38 @@ final d = distance(from, to, Unit.miles);
 // d ≈ 60.37''',
       ),
       TurfFunction(
+        name: 'envelope',
+        description:
+            'Takes any GeoJSON object and returns a rectangular Polygon that represents the smallest bounding box that contains the entire feature.',
+        params: [
+          TurfParam(name: 'geojson', type: 'GeoJSONObject', description: 'Any GeoJSON object'),
+        ],
+        returns: 'Feature<Polygon>',
+        example: '''final points = FeatureCollection<Point>(
+        features: [
+          Feature(geometry: Point(coordinates: Position(2.35, 48.85))),
+          Feature(geometry: Point(coordinates: Position(13.40, 52.52))),
+          Feature(geometry: Point(coordinates: Position(-3.70, 40.41))),
+        ],
+      );
+      final box = envelope(points);
+      // returns a rectangle that fits all three points''',
+      ),
+      TurfFunction(
+        name: 'flatten',
+        description:
+            'Takes any GeoJSON object and returns a FeatureCollection of simple single-geometry features. Multi geometries like MultiPolygon or MultiLineString are split into their individual parts.',
+        params: [
+          TurfParam(name: 'geojson', type: 'GeoJSONObject', description: 'Any GeoJSON object including Multi geometries'),
+        ],
+        returns: 'FeatureCollection<GeometryObject>',
+        example: '''final multiPolygon = Feature<MultiPolygon>(
+        geometry: MultiPolygon(coordinates: [...]),
+      );
+      final result = flatten(multiPolygon);
+      // returns FeatureCollection with 3 individual Polygon features''',
+      ),
+      TurfFunction(
         name: 'length',
         description: 'Takes a GeoJSON LineString and measures its total length.',
         params: [
@@ -296,6 +328,25 @@ final line = Feature<LineString>(
   ]),
 );
 final d = pointToLineDistance(pt, line, Unit.kilometers);''',
+      ),
+            TurfFunction(
+        name: 'randomLineString',
+        description:
+            'Generates a FeatureCollection of random LineStrings within a given bounding box. Useful for testing and prototyping spatial algorithms.',
+        params: [
+          TurfParam(name: 'count', type: 'int', description: 'Number of LineStrings to generate'),
+          TurfParam(name: 'bbox', type: 'BBox?', description: 'Bounding box to generate within', optional: true),
+          TurfParam(name: 'numVertices', type: 'int', description: 'Number of vertices per line (default 10)', optional: true),
+          TurfParam(name: 'maxLength', type: 'double', description: 'Max decimal degrees a vertex can move from its predecessor', optional: true),
+          TurfParam(name: 'maxRotation', type: 'double', description: 'Max radians a segment can turn from the previous segment', optional: true),
+        ],
+        returns: 'FeatureCollection<LineString>',
+        example: '''final lines = randomLineString(
+        3,
+        bbox: BBox.named(lat1: 35.0, lng1: -10.0, lat2: 60.0, lng2: 30.0),
+        numVertices: 8,
+        maxLength: 1.5,
+      );''',
       ),
       TurfFunction(
         name: 'rhumbBearing',
