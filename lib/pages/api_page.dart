@@ -11,6 +11,8 @@ import '../showcases/envelope_showcase.dart';
 import '../showcases/random_linestring_showcase.dart';
 import '../showcases/flatten_showcase.dart';
 import '../showcases/bearing_showcase.dart';
+import '../showcases/boolean_point_in_polygon_showcase.dart';
+import '../showcases/destination_showcase.dart';
 import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
@@ -648,6 +650,10 @@ class _ApiPageState extends State<ApiPage> {
       showcase = const FlattenShowcase();
     } else if (fn.name == 'bearing') {
       showcase = const BearingShowcase();
+    } else if (fn.name == 'booleanPointInPolygon') {
+      showcase = const BooleanPointInPolygonShowcase();
+    } else if (fn.name == 'destination') {
+      showcase = const DestinationShowcase();
     }
 
     final installation = InstallationSection(
