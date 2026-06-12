@@ -13,6 +13,8 @@ import '../showcases/flatten_showcase.dart';
 import '../showcases/bearing_showcase.dart';
 import '../showcases/boolean_point_in_polygon_showcase.dart';
 import '../showcases/destination_showcase.dart';
+import '../showcases/nearest_point_showcase.dart';
+import '../showcases/line_intersect_showcase.dart';
 import '../showcases/installation_section.dart';
 
 class ApiPage extends StatefulWidget {
@@ -654,6 +656,10 @@ class _ApiPageState extends State<ApiPage> {
       showcase = const BooleanPointInPolygonShowcase();
     } else if (fn.name == 'destination') {
       showcase = const DestinationShowcase();
+    } else if (fn.name == 'nearestPoint') {
+      showcase = const NearestPointShowcase();
+    } else if (fn.name == 'lineIntersect') {
+      showcase = const LineIntersectShowcase();
     }
 
     final installation = InstallationSection(
